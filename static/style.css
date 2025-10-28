@@ -1,0 +1,221 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #1e1e1e;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.container {
+  padding: 25px;
+  border-radius: 15px;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+.chat-content {
+  background: #2a2a2a;
+  padding: 25px;
+  border-radius: 15px;
+  width: 100%;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.lista-container {
+  background: #2a2a2a;
+  padding: 25px;
+  border-radius: 15px;
+  width: 100vh;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+h2 {
+  color: white;
+}
+
+.chat-box {
+  height: 400px;
+  overflow-y: auto;
+  border: 2px solid #1e1e1e;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.input-area {
+  display: flex;
+  gap: 10px;
+}
+
+input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #1e1e1e;
+  background: rgb(59, 59, 59);
+  color: white;
+}
+
+input:focus {
+  outline: 1px solid #1e1e1e;
+}
+
+button {
+  padding: 10px;
+  background: #18692b;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background 0.2s;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  display: inline-block;
+}
+
+.secondary-button {
+  padding: 10px;
+  background: #3d3d3d;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background 0.2s;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  display: inline-block;
+}
+
+.secondary-button:hover {
+  background: #363636;
+}
+
+button:hover {
+  background: #1e8035;
+}
+
+.user {
+  text-align: right;
+  color: rgb(131, 131, 131);
+  margin: 5px 0;
+}
+
+.bot {
+  text-align: left;
+  color: rgb(255, 255, 255);
+  margin: 5px 0;
+}
+
+a {
+  color: rgb(0, 140, 255);
+  text-decoration: none;
+}
+
+textarea {
+  background: #2a2a2a;
+  color: white;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.top-bar button {
+  margin-bottom: 15px;
+}
+
+.tabela-receitas {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1em;
+}
+.tabela-receitas th,
+.tabela-receitas td {
+  border: 1px solid #ccc;
+  padding: 0.5em;
+  text-align: left;
+  vertical-align: top;
+}
+.tabela-receitas th {
+  background: #3b3b3b;
+}
+.tabela-receitas details summary {
+  cursor: pointer;
+  color: #0077cc;
+}
+
+.paginacao {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  margin: 2em 0 1em 0;
+}
+
+.paginacao-btn {
+  padding: 0.5em 1.2em;
+  background: #18692b;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.2s;
+  border: none;
+  cursor: pointer;
+  font-size: 1em;
+  display: inline-block;
+}
+
+.paginacao-btn:hover:not(.disabled) {
+  background: #1e8035;
+}
+
+.paginacao-btn.disabled {
+  background: #444;
+  color: #aaa;
+  cursor: default;
+  pointer-events: none;
+}
+
+.paginacao-info {
+  font-size: 1.1em;
+  color: #fff;
+  font-weight: 500;
+}
+
+.search-form {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1em;
+  gap: 0.5em;
+}
+
+.search-input {
+  padding: 0.5em;
+  border-radius: 5px;
+  border: 1px solid #1e1e1e;
+  background: #363636;
+  color: #fff;
+}
+
+.search-btn {
+  padding: 0.5em 1em;
+  background: #18692b;
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.search-btn:hover {
+  background: #1e8035;
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Cadastro de Receitas</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="lista-container">
+      <div class="title">
+        <i class="fa-solid fa-book"></i>
+        <h2>Receitas Cadastradas</h2>
+      </div>
+      <form method="get" class="search-form">
+        <input
+          type="text"
+          name="search"
+          placeholder="Buscar receita..."
+          value="{{ request.args.get('search', '') }}"
+          class="search-input"
+        />
+        <button type="submit" class="search-btn">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </form>
+      <div class="receitas-lista">
+        {% if receitas %}
+        <table class="tabela-receitas">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Ingredientes</th>
+              <th>Modo de Preparo</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for receita in receitas %}
+            <tr>
+              <td>{{ receita['nome'] }}</td>
+              <td>{{ receita['ingredientes'] }}</td>
+              <td>
+                <details>
+                  <summary>Ver</summary>
+                  <p>{{ receita['modo_preparo'] }}</p>
+                </details>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <p>Nenhuma receita cadastrada.</p>
+        {% endif %}
+      </div>
+
+      <!-- Paginação -->
+      <div class="paginacao">
+        {% if page > 1 %}
+        <a class="paginacao-btn" href="{{ url_for('lista', page=page-1) }}"
+          >&laquo; Anterior</a
+        >
+        {% else %}
+        <span class="paginacao-btn disabled">&laquo; Anterior</span>
+        {% endif %}
+        <span class="paginacao-info"
+          >Página {{ page }} de {{ total_pages }}</span
+        >
+        {% if page < total_pages %}
+        <a class="paginacao-btn" href="{{ url_for('lista', page=page+1) }}"
+          >Próxima &raquo;</a
+        >
+        {% else %}
+        <span class="paginacao-btn disabled">Próxima &raquo;</span>
+        {% endif %}
+      </div>
+      <button id="chat-btn" class="secondary-button">Voltar ao Chat</button>
+    </div>
+    <script src="/static/script.js"></script>
+  </body>
+</html>
