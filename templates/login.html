@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Login - Chatbot de Receitas</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="top-bar">
+        <h2>Login</h2>
+      </div>
+
+      <div class="chat-content card">
+        {% if error %}
+        <p class="alert-error">{{ error }}</p>
+        {% endif %}
+
+        <form method="post">
+          <input type="hidden" name="next" value="{{ next }}" />
+          <div class="form-column">
+            <input type="text" name="username" placeholder="Usuário" required />
+            <input type="password" name="password" placeholder="Senha" required />
+            <div class="form-actions">
+              <button type="submit">Entrar</button>
+            </div>
+          </div>
+        </form>
+
+        <p class="muted" style="text-align:center; margin-top:15px;">
+          Não tem conta? <a href="{{ url_for('register') }}">Registre-se aqui</a>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

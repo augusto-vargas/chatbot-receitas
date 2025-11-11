@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Registro - Chatbot de Receitas</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="top-bar">
+        <h2>Criar Conta</h2>
+      </div>
+
+      <div class="chat-content card">
+        {% if error %}
+        <p class="alert-error">{{ error }}</p>
+        {% endif %}
+
+        {% if success %}
+        <p class="alert-success">{{ success }}</p>
+        {% endif %}
+
+        <form method="post">
+          <div class="form-column">
+            <input type="text" name="username" placeholder="Usuário" minlength="3" maxlength="50" required />
+            <input type="password" name="password" placeholder="Senha" minlength="6" maxlength="100" required />
+            <input type="password" name="password_confirm" placeholder="Confirmar Senha" minlength="6" maxlength="100" required />
+            <div class="form-actions">
+              <a href="{{ url_for('login') }}" class="secondary-button">Voltar</a>
+              <button type="submit">Registrar</button>
+            </div>
+          </div>
+        </form>
+
+        <p class="muted" style="text-align:center; margin-top:15px;">Já tem conta? <a href="{{ url_for('login') }}">Faça login</a></p>
+      </div>
+    </div>
+  </body>
+</html>

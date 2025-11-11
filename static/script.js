@@ -1,60 +1,65 @@
+// Handles sending messages to the backend and updating the chat UI.
 async function sendMessage() {
-  let message = document.getElementById("message").value;
+  const inputEl = document.getElementById("message");
+  const chatBox = document.getElementById("chat-box");
+  const message = inputEl && inputEl.value.trim();
   if (!message) return;
 
-  let chatBox = document.getElementById("chat-box");
-
-  // Mostrar mensagem do usuário
-  chatBox.innerHTML += `<p class="user"><b>Você:</b> ${message}</p>`;
+  chatBox.insertAdjacentHTML('beforeend', `<p class="user"><b>Você:</b> ${message}</p>`);
   chatBox.scrollTop = chatBox.scrollHeight;
 
-  // Enviar para o backend
-  let response = await fetch("/chat", {
+  const res = await fetch("/chat", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message: message }),
+    body: JSON.stringify({ message })
   });
 
-  let data = await response.json();
-
-  // Mostrar resposta do bot
-  chatBox.innerHTML += `<p class="bot"><b>Bot:</b> ${data.reply}</p>`;
+  const data = await res.json();
+  chatBox.insertAdjacentHTML('beforeend', `<p class="bot"><b>Bot:</b> ${data.reply}</p>`);
   chatBox.scrollTop = chatBox.scrollHeight;
-
-  // Limpar input
-  document.getElementById("message").value = "";
+  inputEl.value = "";
 }
-// Enter
+
+// Display welcome message with username and tips.
+function showWelcomeMessage() {
+  const chatBox = document.getElementById("chat-box");
+  const username = chatBox && chatBox.getAttribute("data-username");
+  
+  if (!chatBox || !username) return;
+
+  const welcome = `
+    <p class="bot"><b>Bot:</b> Olá, ${username}! 👋 Bem-vindo ao ChefBot.</p>
+    <p class="bot"><b>Bot:</b> Aqui você pode buscar receitas digitando:</p>
+    <p class="bot">• Um ingrediente (ex: "frango", "tomate")</p>
+    <p class="bot">• O nome de uma receita (ex: "sushi", "pizza")</p>
+    <p class="bot">Explore a biblioteca completa em "Lista de Ingredientes" ou crie suas próprias receitas em "Minhas Receitas". Bom apetite! 🍳</p>
+  `;
+  
+  chatBox.insertAdjacentHTML('beforeend', welcome);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+// Single DOM-ready entry point: wire UI controls.
 document.addEventListener("DOMContentLoaded", () => {
   const input = document.getElementById("message");
   const sendBtn = document.getElementById("send-btn");
+  const listaBtn = document.getElementById("lista-btn");
+  const chatBtn = document.getElementById("chat-btn");
+
+  showWelcomeMessage();
 
   if (input && sendBtn) {
-    input.addEventListener("keydown", function (event) {
-      // Envia ao pressionar Enter (sem Shift)
-      if (event.key === "Enter" && !event.shiftKey) {
-        event.preventDefault();
+    // Enter submits (without Shift)
+    input.addEventListener("keydown", (ev) => {
+      if (ev.key === "Enter" && !ev.shiftKey) {
+        ev.preventDefault();
         sendBtn.click();
       }
     });
+    sendBtn.addEventListener("click", sendMessage);
   }
+
+  if (listaBtn) listaBtn.addEventListener("click", () => window.location.href = "lista");
+  if (chatBtn) chatBtn.addEventListener("click", () => window.location.href = "/");
 });
 
-// Redirecionar para página de lista
-document.addEventListener("DOMContentLoaded", () => {
-  const listaBtn = document.getElementById("lista-btn");
-  if (listaBtn) {
-    listaBtn.addEventListener("click", () => {
-      window.location.href = "lista";
-    });
-  }
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  const chatBtn = document.getElementById("chat-btn");
-  if (chatBtn) {
-    chatBtn.addEventListener("click", () => {
-      window.location.href = "/";
-    });
-  }
-});

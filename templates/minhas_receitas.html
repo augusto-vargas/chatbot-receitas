@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Minhas Receitas</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="lista-container">
+      <div class="title">
+        <i class="fa-solid fa-chef"></i>
+        <h2>Minhas Receitas Personalizadas</h2>
+      </div>
+      <div class="top-actions">
+        <a href="{{ url_for('index') }}" class="secondary-button">Voltar ao Chat</a>
+        <a href="{{ url_for('logout') }}" class="secondary-button">Sair</a>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0;">➕ Adicionar Nova Receita</h3>
+        {% if erro %}
+        <p class="alert-error">{{ erro }}</p>
+        {% endif %}
+
+        <form method="post">
+          <div class="form-column">
+            <input type="text" name="nome" placeholder="Nome da Receita" maxlength="100" required />
+            <textarea name="ingredientes" placeholder="Ingredientes (um por linha ou separados por vírgula)" rows="4" required></textarea>
+            <textarea name="modo_preparo" placeholder="Modo de Preparo" rows="5" required></textarea>
+            <button type="submit" style="width:100%">Salvar Receita</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Lista de receitas do usuário -->
+      <div class="receitas-lista">
+        {% if receitas %}
+        <h3>Suas Receitas ({{ receitas|length }})</h3>
+        <table class="tabela-receitas">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Ingredientes</th>
+              <th>Modo de Preparo</th>
+              <th>Ação</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for receita in receitas %}
+            <tr>
+              <td><strong>{{ receita['nome'] }}</strong></td>
+              <td style="white-space: pre-wrap;">{{ receita['ingredientes'] }}</td>
+              <td>
+                <details>
+                  <summary>Ver</summary>
+                  <p style="white-space: pre-wrap;">{{ receita['modo_preparo'] }}</p>
+                </details>
+              </td>
+              <td>
+                <form method="post" action="{{ url_for('deletar_receita', receita_id=receita['id']) }}" style="display:inline;">
+                  <button type="submit" class="delete-btn" onclick="return confirm('Tem certeza que deseja deletar esta receita?');">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <p style="text-align: center; font-size: 1.1em; color: #aaa;">
+          📝 Você ainda não tem receitas personalizadas. Crie sua primeira receita acima!
+        </p>
+        {% endif %}
+      </div>
+
+      <button id="chat-btn" class="secondary-button" style="margin-top: 2em;">Voltar ao Chat</button>
+    </div>
+    <script src="/static/script.js"></script>
+  </body>
+</html>

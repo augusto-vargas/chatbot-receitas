@@ -12,10 +12,12 @@ body {
 .container {
   padding: 25px;
   border-radius: 15px;
-  width: 500px;
+  width: 90%;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
-  align-items: end;
+  align-items: center;
+  margin: 20px auto;
 }
 
 .chat-content {
@@ -30,8 +32,10 @@ body {
   background: #2a2a2a;
   padding: 25px;
   border-radius: 15px;
-  width: 100vh;
+  width: 95%;
+  max-width: 900px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  margin: 20px auto;
 }
 
 h2 {
@@ -39,6 +43,7 @@ h2 {
 }
 
 .chat-box {
+  max-height: 50vh;
   height: 400px;
   overflow-y: auto;
   border: 2px solid #1e1e1e;
@@ -131,6 +136,31 @@ textarea {
   margin-bottom: 15px;
 }
 
+/* Utility classes for forms and layout */
+.card {
+  background: #363636;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 1.25em;
+}
+
+.form-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.alert-error { color: #ffb3b3; }
+.alert-success { color: #b3ffb3; }
+
+.top-actions { display:flex; justify-content:flex-end; margin-bottom:1em; gap:1em; }
+
 .tabela-receitas {
   width: 100%;
   border-collapse: collapse;
@@ -190,6 +220,31 @@ textarea {
   font-weight: 500;
 }
 
+/* Responsive rules */
+@media (max-width: 900px) {
+  .lista-container { padding: 20px; }
+  .container { padding: 20px; }
+  .chat-box { height: 360px; }
+}
+
+@media (max-width: 600px) {
+  /* Make chat area full-width and stack inputs */
+  .container { max-width: 100%; width: 95%; padding: 16px; }
+  .chat-content { padding: 16px; }
+  .chat-box { height: 45vh; max-height: 45vh; }
+  .input-area { flex-direction: column; }
+  .input-area input { width: 100%; }
+  .input-area button { width: 100%; }
+
+  /* Readability for lists */
+  .lista-container { padding: 16px; }
+  .tabela-receitas td, .tabela-receitas th { padding: 0.4em; font-size: 0.95em; }
+
+  /* Form layout */
+  .form-actions { justify-content: stretch; }
+  .form-actions .secondary-button, .form-actions button { flex: 1; }
+}
+
 .search-form {
   display: flex;
   justify-content: flex-end;
@@ -218,4 +273,19 @@ textarea {
 
 .search-btn:hover {
   background: #1e8035;
+}
+
+.delete-btn {
+  padding: 0.5em 0.8em;
+  background: #c73d3d;
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background 0.2s;
+}
+
+.delete-btn:hover {
+  background: #a02a2a;
 }

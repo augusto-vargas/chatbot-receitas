@@ -9,17 +9,19 @@
     <div class="container">
       <div class="top-bar">
         <button id="lista-btn">Lista de Ingredientes</button>
+        <a href="{{ url_for('minhas_receitas') }}" class="secondary-button">Minhas Receitas</a>
+        <a href="{{ url_for('logout') }}" class="secondary-button">Sair</a>
       </div>
       <div class="chat-content">
         <h2>🧑‍🍳 ChefBot</h2>
-        <div id="chat-box" class="chat-box"></div>
+        <div id="chat-box" class="chat-box" data-username="{{ username }}"></div>
         <div class="input-area">
           <input
             type="text"
             id="message"
             placeholder="Digite um ingrediente ou receita..."
           />
-          <button id="send-btn" onclick="sendMessage()">Enviar</button>
+          <button id="send-btn">Enviar</button>
         </div>
       </div>
     </div>

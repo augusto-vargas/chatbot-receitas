@@ -15,6 +15,10 @@
         <i class="fa-solid fa-book"></i>
         <h2>Receitas Cadastradas</h2>
       </div>
+      <div class="top-actions">
+        <a href="{{ url_for('minhas_receitas') }}" class="secondary-button">Minhas Receitas</a>
+        <a href="{{ url_for('logout') }}" class="secondary-button">Sair</a>
+      </div>
       <form method="get" class="search-form">
         <input
           type="text"
