@@ -14,34 +14,38 @@ Um aplicativo web completo para gerenciamento de receitas com autenticação de 
 ## 🚀 Instalação
 
 ### Pré-requisitos
+
 - Python 3.7+
 - pip
 
 ### Passos
 
 1. Clone ou baixe o projeto:
+
 ```bash
 cd chatbot-receitas
 ```
 
 2. Instale as dependências:
+
 ```bash
 pip install -r requirements.txt
 ```
 
 3. Configure o banco de dados:
+
 ```bash
-python setup_db.py
-python setup_users_db.py
-python setup_receitas_personalizadas.py
+python setup.py
 ```
 
 4. Inicie a aplicação:
+
 ```bash
 python app.py
 ```
 
 5. Acesse no navegador:
+
 ```
 http://127.0.0.1:5000
 ```
@@ -49,22 +53,26 @@ http://127.0.0.1:5000
 ## 📖 Uso
 
 ### Primeiro Acesso
+
 1. Clique em **"Registre-se aqui"** para criar uma conta
 2. Preencha os dados (usuário com mínimo 3 caracteres, senha com mínimo 6)
 3. Faça login com suas credenciais
 
 ### Chatbot
+
 - Navegue para a página inicial
 - Digite um ingrediente ou nome de receita no chat
 - O bot buscará e exibirá receitas correspondentes
 
 ### Minhas Receitas
+
 - Clique em **"Minhas Receitas"** (botão verde)
 - Preencha o formulário para criar uma nova receita
 - Suas receitas aparecem na lista abaixo
 - Clique no lixo (🗑️) para deletar
 
 ### Lista de Receitas
+
 - Acesse **"Lista de Ingredientes"** para ver todas as receitas públicas
 - Use a barra de busca para filtrar
 - Navegue entre páginas com os botões de paginação
@@ -74,11 +82,10 @@ http://127.0.0.1:5000
 ```
 chatbot-receitas/
 ├── app.py                          # Aplicação Flask principal
+├── setup.py                        # Script para criar tabelas e seeds
 ├── requirements.txt                # Dependências Python
 ├── receitas.db                     # Banco de dados SQLite
-├── setup_db.py                     # Script para criar tabela de receitas
-├── setup_users_db.py               # Script para criar tabela de usuários
-├── setup_receitas_personalizadas.py # Script para criar tabela de receitas personalizadas
+├── README.md                       # Este arquivo
 ├── static/
 │   ├── style.css                   # Estilos globais
 │   └── script.js                   # JavaScript do cliente
@@ -104,30 +111,16 @@ chatbot-receitas/
 - Ícones Font Awesome
 - Animações e transições suaves
 
-## 📝 Credenciais Padrão
-
-Após executar `setup_users_db.py`:
-- **Usuário**: admin
-- **Senha**: senha
-
-⚠️ **Aviso**: Altere estas credenciais em produção!
-
 ## 🐛 Troubleshooting
 
 ### Flask não encontrado
+
 ```bash
 pip install flask werkzeug
 ```
 
-### Banco de dados corrompido
-```bash
-rm receitas.db
-python setup_db.py
-python setup_users_db.py
-python setup_receitas_personalizadas.py
-```
-
 ### Porta 5000 ocupada
+
 ```bash
 # Modifique a última linha de app.py:
 app.run(debug=True, port=5001)
@@ -143,7 +136,3 @@ app.run(debug=True, port=5001)
 ## 📄 Licença
 
 Este projeto é de uso livre para fins educacionais.
-
----
-
-Desenvolvido com ❤️ usando Flask
