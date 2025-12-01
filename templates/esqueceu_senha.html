@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Recupere sua senha no ChefBot" />
+    <title>Recuperar Senha - ChefBot</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header class="top-bar">
+        <h1 style="margin: 0; display: flex; align-items: center; gap: 0.5rem">
+          <i class="fa-solid fa-key"></i> Recuperar Senha
+        </h1>
+      </header>
+
+      <main class="chat-content card">
+        {% if success %}
+        <div
+          class="alert-success"
+          role="alert"
+          style="text-align: center; padding: var(--spacing-xl)"
+        >
+          <i
+            class="fa-solid fa-circle-check"
+            style="font-size: 3rem; margin-bottom: var(--spacing-md)"
+          ></i>
+          <h2 style="margin: var(--spacing-md) 0; color: var(--color-success)">
+            Email de Confirmação Enviado!
+          </h2>
+          <p
+            style="
+              font-size: var(--font-size-lg);
+              margin-bottom: var(--spacing-lg);
+            "
+          >
+            Se houver uma conta cadastrada com este email, as instruções para
+            redefinir sua senha foram enviadas para
+            <strong>{{ email }}</strong>.
+          </p>
+          <p class="muted" style="margin-bottom: var(--spacing-xl)">
+            Verifique sua caixa de entrada e spam. O link expira em 24 horas.
+          </p>
+          <a
+            href="{{ url_for('login') }}"
+            class="secondary-button"
+            style="display: inline-block"
+          >
+            <i class="fa-solid fa-arrow-left"></i> Voltar ao Login
+          </a>
+        </div>
+        {% else %} {% if error %}
+        <div class="alert-error" role="alert">
+          <i class="fa-solid fa-circle-exclamation"></i> {{ error }}
+        </div>
+        {% endif %}
+
+        <p
+          style="
+            text-align: center;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-lg);
+          "
+        >
+          Digite seu email cadastrado e enviaremos instruções para redefinir sua
+          senha.
+        </p>
+
+        <form method="post" aria-label="Formulário de recuperação de senha">
+          <div class="form-column">
+            <div>
+              <label for="email" class="visually-hidden">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Seu email cadastrado"
+                required
+                autocomplete="email"
+                autofocus
+              />
+            </div>
+            <div class="form-actions">
+              <a href="{{ url_for('login') }}" class="secondary-button">
+                <i class="fa-solid fa-arrow-left"></i> Voltar
+              </a>
+              <button type="submit">
+                <i class="fa-solid fa-paper-plane"></i> Enviar Email
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <p
+          class="muted"
+          style="text-align: center; margin-top: var(--spacing-lg)"
+        >
+          Lembrou sua senha? <a href="{{ url_for('login') }}">Faça login</a>
+        </p>
+        {% endif %}
+      </main>
+    </div>
+  </body>
+</html>

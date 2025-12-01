@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Crie sua conta no ChefBot - Seu assistente de receitas"
+    />
+    <title>Registro - ChefBot</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header class="top-bar">
+        <h1 style="margin: 0; display: flex; align-items: center; gap: 0.5rem">
+          <i class="fa-solid fa-user-plus"></i> Criar Conta
+        </h1>
+      </header>
+
+      <main class="chat-content card">
+        {% if error %}
+        <div class="alert-error" role="alert">
+          <i class="fa-solid fa-circle-exclamation"></i> {{ error }}
+        </div>
+        {% endif %} {% if success %}
+        <div class="alert-success" role="alert">
+          <i class="fa-solid fa-circle-check"></i> {{ success }}
+        </div>
+        {% endif %}
+
+        <form method="post" aria-label="Formulário de registro">
+          <div class="form-column">
+            <div>
+              <label for="username" class="visually-hidden">Usuário</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="Usuário"
+                minlength="3"
+                maxlength="50"
+                required
+                autocomplete="username"
+                autofocus
+              />
+              <small class="muted">Mínimo 3 caracteres</small>
+            </div>
+            <div>
+              <label for="email" class="visually-hidden">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Email"
+                required
+                autocomplete="email"
+              />
+            </div>
+            <div>
+              <label for="password" class="visually-hidden">Senha</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Senha"
+                minlength="6"
+                maxlength="100"
+                required
+                autocomplete="new-password"
+              />
+              <small class="muted">Mínimo 6 caracteres</small>
+            </div>
+            <div>
+              <label for="password_confirm" class="visually-hidden"
+                >Confirmar Senha</label
+              >
+              <input
+                type="password"
+                id="password_confirm"
+                name="password_confirm"
+                placeholder="Confirmar Senha"
+                minlength="6"
+                maxlength="100"
+                required
+                autocomplete="new-password"
+              />
+            </div>
+            <div class="form-actions">
+              <a href="{{ url_for('login') }}" class="secondary-button">
+                <i class="fa-solid fa-arrow-left"></i> Voltar
+              </a>
+              <button type="submit">
+                <i class="fa-solid fa-check"></i> Registrar
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <p
+          class="muted"
+          style="text-align: center; margin-top: var(--spacing-lg)"
+        >
+          Já tem conta? <a href="{{ url_for('login') }}">Faça login</a>
+        </p>
+      </main>
+    </div>
+  </body>
+</html>

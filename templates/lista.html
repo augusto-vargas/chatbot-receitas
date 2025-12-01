@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Catálogo de Receitas - Navegue por todas as receitas cadastradas"
+    />
+    <title>Catálogo de Receitas - ChefBot</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="lista-container">
+      <header class="title">
+        <i class="fa-solid fa-book"></i>
+        <h1 style="margin: 0">Catálogo de Receitas</h1>
+      </header>
+
+      <nav class="top-actions" aria-label="Menu de navegação">
+        <a
+          href="{{ url_for('minhas_receitas') }}"
+          class="secondary-button"
+          aria-label="Ver minhas receitas"
+        >
+          <i class="fa-solid fa-heart"></i> Minhas Receitas
+        </a>
+        <a
+          href="{{ url_for('logout') }}"
+          class="secondary-button"
+          aria-label="Sair da conta"
+        >
+          <i class="fa-solid fa-right-from-bracket"></i> Sair
+        </a>
+      </nav>
+
+      <form
+        method="get"
+        class="search-form"
+        role="search"
+        aria-label="Buscar receitas"
+      >
+        <input
+          type="search"
+          name="search"
+          id="search"
+          placeholder="Buscar receita..."
+          value="{{ request.args.get('search', '') }}"
+          class="search-input"
+          aria-label="Campo de busca"
+        />
+        <button type="submit" class="search-btn" aria-label="Buscar">
+          <i class="fa-solid fa-magnifying-glass"></i> Buscar
+        </button>
+      </form>
+
+      <main class="receitas-lista">
+        {% if receitas %}
+        <table
+          class="tabela-receitas"
+          role="table"
+          aria-label="Tabela de receitas"
+        >
+          <thead>
+            <tr>
+              <th scope="col">Nome</th>
+              <th scope="col">Ingredientes</th>
+              <th scope="col">Modo de Preparo</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for receita in receitas %}
+            <tr>
+              <td><strong>{{ receita['nome'] }}</strong></td>
+              <td>{{ receita['ingredientes'] }}</td>
+              <td>
+                <details>
+                  <summary>Ver instruções</summary>
+                  <p>{{ receita['modo_preparo'] }}</p>
+                </details>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <div style="text-align: center; padding: var(--spacing-2xl)">
+          <i
+            class="fa-solid fa-magnifying-glass"
+            style="
+              font-size: 3rem;
+              color: var(--color-text-muted);
+              margin-bottom: var(--spacing-md);
+            "
+          ></i>
+          <p
+            style="
+              font-size: var(--font-size-lg);
+              color: var(--color-text-secondary);
+            "
+          >
+            Nenhuma receita encontrada.
+          </p>
+        </div>
+        {% endif %}
+      </main>
+
+      <nav class="paginacao" aria-label="Navegação de páginas">
+        {% if page > 1 %}
+        <a
+          class="paginacao-btn"
+          href="{{ url_for('lista', page=page-1) }}"
+          aria-label="Página anterior"
+        >
+          <i class="fa-solid fa-chevron-left"></i> Anterior
+        </a>
+        {% else %}
+        <span class="paginacao-btn disabled" aria-disabled="true">
+          <i class="fa-solid fa-chevron-left"></i> Anterior
+        </span>
+        {% endif %}
+
+        <span class="paginacao-info" aria-current="page">
+          Página {{ page }} de {{ total_pages }}
+        </span>
+
+        {% if page < total_pages %}
+        <a
+          class="paginacao-btn"
+          href="{{ url_for('lista', page=page+1) }}"
+          aria-label="Próxima página"
+        >
+          Próxima <i class="fa-solid fa-chevron-right"></i>
+        </a>
+        {% else %}
+        <span class="paginacao-btn disabled" aria-disabled="true">
+          Próxima <i class="fa-solid fa-chevron-right"></i>
+        </span>
+        {% endif %}
+      </nav>
+
+      <button
+        id="chat-btn"
+        class="secondary-button"
+        style="margin-top: var(--spacing-xl)"
+      >
+        <i class="fa-solid fa-comments"></i> Voltar ao Chat
+      </button>
+    </div>
+    <script src="/static/script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Gerencie suas receitas personalizadas no ChefBot"
+    />
+    <title>Minhas Receitas - ChefBot</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    {% if sucesso %}
+    <div class="toast success" id="toast">
+      <i class="fa-solid fa-circle-check"></i>
+      <span>{{ sucesso }}</span>
+    </div>
+    {% endif %} {% if erro %}
+    <div class="toast error" id="toast">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      <span>{{ erro }}</span>
+    </div>
+    {% endif %}
+
+    <div class="lista-container">
+      <header class="title">
+        <i class="fa-solid fa-heart"></i>
+        <h1 style="margin: 0">Minhas Receitas</h1>
+      </header>
+
+      <nav class="top-actions" aria-label="Menu de navegação">
+        <a
+          href="{{ url_for('index') }}"
+          class="secondary-button"
+          aria-label="Voltar ao chat"
+        >
+          <i class="fa-solid fa-comments"></i> Voltar ao Chat
+        </a>
+        <a
+          href="{{ url_for('logout') }}"
+          class="secondary-button"
+          aria-label="Sair da conta"
+        >
+          <i class="fa-solid fa-right-from-bracket"></i> Sair
+        </a>
+      </nav>
+
+      <section class="card">
+        <h2
+          style="margin-top: 0; display: flex; align-items: center; gap: 0.5rem"
+        >
+          <i class="fa-solid fa-plus-circle"></i> Adicionar Nova Receita
+        </h2>
+
+        <form method="post" aria-label="Formulário de nova receita">
+          <div class="form-column">
+            <div>
+              <label for="nome" class="visually-hidden">Nome da Receita</label>
+              <input
+                type="text"
+                id="nome"
+                name="nome"
+                placeholder="Nome da Receita"
+                maxlength="100"
+                required
+                autofocus
+              />
+            </div>
+            <div>
+              <label for="ingredientes" class="visually-hidden"
+                >Ingredientes</label
+              >
+              <textarea
+                id="ingredientes"
+                name="ingredientes"
+                placeholder="Ingredientes (um por linha ou separados por vírgula)"
+                rows="4"
+                required
+              ></textarea>
+            </div>
+            <div>
+              <label for="modo_preparo" class="visually-hidden"
+                >Modo de Preparo</label
+              >
+              <textarea
+                id="modo_preparo"
+                name="modo_preparo"
+                placeholder="Modo de Preparo"
+                rows="5"
+                required
+              ></textarea>
+            </div>
+            <button type="submit" style="width: 100%">
+              <i class="fa-solid fa-save"></i> Salvar Receita
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <main class="receitas-lista">
+        {% if receitas %}
+        <h2 style="display: flex; align-items: center; gap: 0.5rem">
+          <i class="fa-solid fa-utensils"></i> Suas Receitas ({{ receitas|length
+          }})
+        </h2>
+        <table
+          class="tabela-receitas"
+          role="table"
+          aria-label="Tabela de minhas receitas"
+        >
+          <thead>
+            <tr>
+              <th scope="col">Nome</th>
+              <th scope="col">Ingredientes</th>
+              <th scope="col">Modo de Preparo</th>
+              <th scope="col">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for receita in receitas %}
+            <tr>
+              <td><strong>{{ receita['nome'] }}</strong></td>
+              <td>{{ receita['ingredientes'] }}</td>
+              <td>
+                <details>
+                  <summary>Ver instruções</summary>
+                  <p>{{ receita['modo_preparo'] }}</p>
+                </details>
+              </td>
+              <td>
+                <form
+                  method="post"
+                  action="{{ url_for('deletar_receita', receita_id=receita['id']) }}"
+                  style="display: inline"
+                  onsubmit="return confirm('Tem certeza que deseja deletar esta receita?');"
+                >
+                  <button
+                    type="submit"
+                    class="delete-btn"
+                    aria-label="Deletar receita {{ receita['nome'] }}"
+                  >
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <div style="text-align: center; padding: var(--spacing-2xl)">
+          <i
+            class="fa-solid fa-book-open"
+            style="
+              font-size: 3rem;
+              color: var(--color-text-muted);
+              margin-bottom: var(--spacing-md);
+            "
+          ></i>
+          <p
+            style="
+              font-size: var(--font-size-lg);
+              color: var(--color-text-secondary);
+            "
+          >
+            📝 Você ainda não tem receitas personalizadas.
+          </p>
+          <p style="color: var(--color-text-muted)">
+            Crie sua primeira receita usando o formulário acima!
+          </p>
+        </div>
+        {% endif %}
+      </main>
+
+      <button
+        id="chat-btn"
+        class="secondary-button"
+        style="margin-top: var(--spacing-xl)"
+      >
+        <i class="fa-solid fa-comments"></i> Voltar ao Chat
+      </button>
+    </div>
+    <script>
+      const toast = document.getElementById("toast");
+      if (toast) {
+        setTimeout(() => {
+          toast.remove();
+        }, 3000);
+      }
+    </script>
+    <script src="/static/script.js"></script>
+  </body>
+</html>

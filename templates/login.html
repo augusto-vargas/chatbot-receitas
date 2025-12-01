@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Faça login no ChefBot - Seu assistente de receitas"
+    />
+    <title>Login - ChefBot</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header class="top-bar">
+        <h1 style="margin: 0; display: flex; align-items: center; gap: 0.5rem">
+          <i class="fa-solid fa-right-to-bracket"></i> Login
+        </h1>
+      </header>
+
+      <main class="chat-content card">
+        {% if error %}
+        <div class="alert-error" role="alert">
+          <i class="fa-solid fa-circle-exclamation"></i> {{ error }}
+        </div>
+        {% endif %}
+
+        <form method="post" aria-label="Formulário de login">
+          <input type="hidden" name="next" value="{{ next }}" />
+          <div class="form-column">
+            <div>
+              <label for="username" class="visually-hidden">Usuário</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="Usuário"
+                required
+                autocomplete="username"
+                autofocus
+              />
+            </div>
+            <div>
+              <label for="password" class="visually-hidden">Senha</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Senha"
+                required
+                autocomplete="current-password"
+              />
+            </div>
+            <div class="form-actions">
+              <button type="submit">
+                <i class="fa-solid fa-arrow-right"></i> Entrar
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <p
+          class="muted"
+          style="text-align: center; margin-top: var(--spacing-lg)"
+        >
+          Não tem conta?
+          <a href="{{ url_for('register') }}">Registre-se aqui</a>
+        </p>
+        <p
+          class="muted"
+          style="text-align: center; margin-top: var(--spacing-sm)"
+        >
+          <a href="{{ url_for('esqueceu_senha') }}">Esqueceu sua senha?</a>
+        </p>
+      </main>
+    </div>
+  </body>
+</html>
